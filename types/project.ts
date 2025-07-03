@@ -1,5 +1,5 @@
 export interface Project {
   id: string
   name: string
-  status: "active" | "completed"
+  status: "idea" | "active" | "paused" | "completed" | "cancelled"
 }
