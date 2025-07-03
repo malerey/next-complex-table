@@ -1,8 +1,10 @@
+import { Table } from "@/components/Table"
+
 export default function Home() {
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Complex Table Playground</h1>
-      <p>Clean Next.js setup - ready to build!</p>
+    <main className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Complex Table Playground</h1>
+      <Table />
     </main>
   )
 }
