@@ -47,6 +47,15 @@ const formatCurrency = (amount: number) => {
   }).format(amount)
 }
 
+const calculateProgress = (tasks: Project["tasks"]) => {
+  if (tasks.length === 0) return 0
+
+  const totalWeight = tasks.reduce((sum, task) => sum + task.weight, 0)
+  const completedWeight = tasks.filter((task) => task.completed).reduce((sum, task) => sum + task.weight, 0)
+
+  return totalWeight > 0 ? Math.round((completedWeight / totalWeight) * 100) : 0
+}
+
 const columns = [
   columnHelper.display({
     id: "expander",
@@ -92,10 +101,13 @@ const columns = [
     header: "Due Date",
     cell: (info) => formatDate(info.getValue()),
   }),
-  columnHelper.accessor("progress", {
+  columnHelper.display({
+    id: "progress",
     header: "Progress",
     cell: (info) => {
-      const progress = info.getValue()
+      const tasks = info.row.original.tasks
+      const progress = calculateProgress(tasks)
+
       return (
         <div className="flex items-center gap-2">
           <div className="w-16 bg-gray-200 rounded-full h-2">
@@ -195,6 +207,7 @@ export function Table() {
                             {task.completed ? "✓" : "○"}
                           </span>
                           <span className={task.completed ? "line-through text-gray-500" : ""}>{task.title}</span>
+                          <span className="text-xs text-gray-400 ml-auto">({task.weight})</span>
                         </div>
                       ))}
                     </div>

@@ -7,7 +7,6 @@ export interface Project {
   startDate: string
   endDate: string
   owner: string
-  progress: number // percentage 0-100
   budget: {
     current: number
     spent: number
