@@ -49,22 +49,30 @@ npm run dev
 
 - Just project names in a basic table
 - Data: `{ id, name }` - that's it!
-- No styling, just functional rows
-
-**First discovery:** _"I can't tell which projects are important - they all look the same!"_
-
 - Added simple `status` field: idea, active, paused, completed, cancelled
 - Added basic color system (gray, blue, yellow, green, red)
 
-### Phase 2: "We Need More Context" ✅
+Discovery: when tracking projects I need to know who is responsible for it first.
 
-**After using status for a while, got frustrated:**
-_"I can see the status, but I have no idea WHEN these projects are due or WHO is responsible!"_
+### Phase 2: "We Need More Context" ✅
 
 **Added basic project management context:**
 
-- `startDate`, `endDate` fields because stakeholders kept asking "when will this be done?"
+- `startDate`, `endDate` fields because stakeholders will keep asking "when will this be done?"
 - `owner` field because "who's responsible for this?"
 - `progress` percentage to track completion
 - Added progress bars and better date formatting
-- Discovery: "Progress percentages are meaningless without knowing budgets!"
+
+Discovery: Progress percentages are meaningless without knowing budgets
+
+### Phase 3: "This is Getting Complex" ✅
+
+**Added financial reality and basic task tracking:**
+
+- `budget` object with current and spent amounts
+- Over-budget warnings (red text when spent > budget)
+- Currency formatting
+- `taskCount` and `completedTasks` fields
+- Simple "3/8 tasks" display
+
+Discovery: Task counts are useless - I need to see WHAT the actual tasks are!

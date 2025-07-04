@@ -31,6 +31,14 @@ const formatDate = (dateString: string) => {
   })
 }
 
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+  }).format(amount)
+}
+
 const columns = [
   columnHelper.accessor("name", {
     header: "Project Name",
@@ -49,12 +57,8 @@ const columns = [
   columnHelper.accessor("owner", {
     header: "Owner",
   }),
-  columnHelper.accessor("startDate", {
-    header: "Start Date",
-    cell: (info) => formatDate(info.getValue()),
-  }),
   columnHelper.accessor("endDate", {
-    header: "End Date",
+    header: "Due Date",
     cell: (info) => formatDate(info.getValue()),
   }),
   columnHelper.accessor("progress", {
@@ -70,6 +74,22 @@ const columns = [
             />
           </div>
           <span className="text-sm text-gray-600">{progress}%</span>
+        </div>
+      )
+    },
+  }),
+  columnHelper.accessor("budget", {
+    header: "Budget",
+    cell: (info) => {
+      const budget = info.getValue()
+      const isOverBudget = budget.spent > budget.current
+
+      return (
+        <div className="text-right">
+          <div className="text-sm font-medium">{formatCurrency(budget.current)}</div>
+          <div className={`text-xs ${isOverBudget ? "text-red-600" : "text-gray-500"}`}>
+            {formatCurrency(budget.spent)} spent
+          </div>
         </div>
       )
     },
@@ -98,7 +118,7 @@ export function Table() {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} className="hover:bg-gray-50">
+          <tr key={row.id}>
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id} className="border border-gray-300 p-3 text-sm">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
