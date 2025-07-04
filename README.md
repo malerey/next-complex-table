@@ -13,6 +13,7 @@ Starting simple and adding features as I think of them or get annoyed by limitat
 - [x] Tailwind CSS styling
 - [x] Expandable task details with full task management
 - [x] CI/CD pipeline with GitHub Actions + Vercel
+- [x] Advanced table features with user preferences
 - [ ] Everything else...
 
 ## The Plan (loosely)
@@ -23,7 +24,7 @@ Build a project management table that doesn't suck. Will probably get very compl
 
 - **Nested Data**: Expandable rows with tasks, subtasks, dependencies
 - **Advanced Interactions**: Drag-and-drop file uploads, modal inline editing
-- **User Customization**: Resizable columns, column visibility, saved table preferences
+- **User Customization**: Resizable columns, column visibility, saved table preferences ✅
 - **Theming**: User-controlled themes saved to profile
 - **Performance**: Virtualization for large datasets, optional pagination
 - **Multi-selection**: Batch operations, bulk editing/deleting
@@ -36,16 +37,9 @@ Build a project management table that doesn't suck. Will probably get very compl
 - Unit tests with Vitest
 - E2E tests with Playwright (maybe)
 
-## Running
-
-\`\`\`bash
-npm install
-npm run dev
-\`\`\`
-
 ## Deployment
 
-**Live Demo:** [https://next-complex-table.vercel.app/](https://next-complex-table.vercel.app/)
+**Live Demo:** [https://your-actual-vercel-url.vercel.app](https://your-actual-vercel-url.vercel.app)
 
 ### CI/CD Pipeline
 
@@ -115,4 +109,20 @@ Discovery: Task counts are useless - I need to see WHAT the actual tasks are!
 - Weighted progress calculation based on completed tasks
 - Assignee tracking with unassigned task handling
 
-Discovery: Need better task organization and bulk operations!
+Discovery: Need better task organization and a more usable UI
+
+### Phase 5: "Making This Actually Usable" ✅
+
+**Added advanced table features and user preferences:**
+
+- **Task categorization**: Tasks grouped by category (Design, Development, Testing, etc.)
+- **Column management**: Hide/show columns with preferences saved to localStorage
+- **Advanced filtering**: Filter by project status, assignee, task category, and overdue tasks
+- **Full sorting**: All columns sortable with saved sort preferences
+- **Persistent preferences**: All table state saved to localStorage and restored on reload
+- **Better task organization**: Tasks grouped by category in expanded view
+- **Enhanced filtering**: Multi-select filters for status, assignee, and category
+
+Discovery: I need bulk operations and editing!
+
+That's it for now. Let's see how far this rabbit hole goes.

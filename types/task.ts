@@ -5,4 +5,5 @@ export interface Task {
   assignee: string | null
   dueDate: string | null
   weight: number
+  category: string
 }
