@@ -42,6 +42,24 @@ npm install
 npm run dev
 \`\`\`
 
+## Deployment
+
+**Live Demo:** [https://next-complex-table.vercel.app/](https://next-complex-table.vercel.app/)
+
+### CI/CD Pipeline
+
+- **GitHub Actions**: Runs linting and build checks on every push/PR
+- **Vercel**: Auto-deploys to production on main branch pushes
+- **Preview Deployments**: Every PR gets its own preview URL
+
+### Development Workflow
+
+1. Make changes locally
+2. Push to main branch
+3. GitHub Actions validates code (lint, build)
+4. Vercel automatically deploys to production
+5. Live site updates in ~2 minutes
+
 ## Development Journey
 
 ### Phase 1: "Just Get Projects Visible" ✅
