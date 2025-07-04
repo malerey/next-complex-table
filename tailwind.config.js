@@ -1,10 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-const defaultConfig = require('shadcn/ui/tailwind.config')
-
 module.exports = {
-  ...defaultConfig,
   content: [
-    ...defaultConfig.content,
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -24,9 +20,7 @@ module.exports = {
     'text-red-800',
   ],
   theme: {
-    ...defaultConfig.theme,
     extend: {
-      ...defaultConfig.theme.extend,
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -69,5 +63,5 @@ module.exports = {
       },
     },
   },
-  plugins: [...defaultConfig.plugins, require('tailwindcss-animate')],
+  plugins: [],
 }
