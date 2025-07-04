@@ -1,6 +1,14 @@
 "use client"
 
-import { useReactTable, getCoreRowModel, flexRender, createColumnHelper } from "@tanstack/react-table"
+import { useState } from "react"
+import {
+  useReactTable,
+  getCoreRowModel,
+  flexRender,
+  createColumnHelper,
+  getExpandedRowModel,
+  ExpandedState,
+} from "@tanstack/react-table"
 import { projects } from "@/data/projects"
 import type { Project } from "@/types/project"
 
@@ -40,6 +48,29 @@ const formatCurrency = (amount: number) => {
 }
 
 const columns = [
+  columnHelper.display({
+    id: "expander",
+    header: "",
+    cell: ({ row }) => {
+      if (row.original.tasks.length === 0) {
+        return <div className="w-6"></div>
+      }
+      return (
+        <button
+          onClick={row.getToggleExpandedHandler()}
+          className="w-6 h-6 flex items-center justify-center rounded hover:bg-gray-200 transition-colors group relative"
+          title={row.getIsExpanded() ? "Hide tasks" : "Show tasks"}
+        >
+          <span className="text-gray-600 group-hover:text-gray-800 transition-colors">
+            {row.getIsExpanded() ? "−" : "+"}
+          </span>
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+            {row.getIsExpanded() ? "Hide tasks" : "Show tasks"}
+          </div>
+        </button>
+      )
+    },
+  }),
   columnHelper.accessor("name", {
     header: "Project Name",
   }),
@@ -78,6 +109,21 @@ const columns = [
       )
     },
   }),
+  columnHelper.display({
+    id: "tasks",
+    header: "Tasks",
+    cell: (info) => {
+      const { taskCount, completedTasks } = info.row.original
+      if (taskCount === 0) {
+        return <span className="text-gray-400 text-sm">No tasks</span>
+      }
+      return (
+        <span className="text-sm">
+          {completedTasks}/{taskCount}
+        </span>
+      )
+    },
+  }),
   columnHelper.accessor("budget", {
     header: "Budget",
     cell: (info) => {
@@ -97,10 +143,19 @@ const columns = [
 ]
 
 export function Table() {
+
+const [expanded, setExpanded] = useState<ExpandedState>({})
+
   const table = useReactTable({
     data: projects,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    onExpandedChange: setExpanded,
+    state: {
+      expanded,
+    },
+    getRowCanExpand: (row) => row.original.tasks.length > 0,
   })
 
   return (
@@ -118,13 +173,34 @@ export function Table() {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="border border-gray-300 p-3 text-sm">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
+          <>
+            <tr key={row.id} className="hover:bg-gray-50">
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} className="border border-gray-300 p-3 text-sm">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+            {row.getIsExpanded() && (
+              <tr key={`${row.id}-expanded`}>
+                <td colSpan={columns.length} className="border border-gray-300 p-0">
+                  <div className="bg-gray-50 p-4">
+                    <h4 className="font-medium text-sm mb-2">Tasks:</h4>
+                    <div className="space-y-1">
+                      {row.original.tasks.map((task) => (
+                        <div key={task.id} className="flex items-center gap-2 text-sm">
+                          <span className={task.completed ? "text-green-600" : "text-gray-600"}>
+                            {task.completed ? "✓" : "○"}
+                          </span>
+                          <span className={task.completed ? "line-through text-gray-500" : ""}>{task.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            )}
+          </>
         ))}
       </tbody>
     </table>

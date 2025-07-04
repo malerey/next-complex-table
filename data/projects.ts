@@ -11,8 +11,17 @@ export const projects: Project[] = [
     progress: 65,
     budget: {
       current: 50000,
-      spent: 58000, // Over budget!
+      spent: 58000,
     },
+    taskCount: 12,
+    completedTasks: 8,
+    tasks: [
+      { id: "1-1", title: "Design mockups", completed: true },
+      { id: "1-2", title: "Frontend development", completed: true },
+      { id: "1-3", title: "Backend API integration", completed: false },
+      { id: "1-4", title: "User testing", completed: false },
+      { id: "1-5", title: "Performance optimization", completed: false },
+    ],
   },
   {
     id: "2",
@@ -26,6 +35,9 @@ export const projects: Project[] = [
       current: 120000,
       spent: 0,
     },
+    taskCount: 0,
+    completedTasks: 0,
+    tasks: [],
   },
   {
     id: "3",
@@ -39,6 +51,16 @@ export const projects: Project[] = [
       current: 25000,
       spent: 23500,
     },
+    taskCount: 6,
+    completedTasks: 6,
+    tasks: [
+      { id: "3-1", title: "Audit existing endpoints", completed: true },
+      { id: "3-2", title: "Design new API structure", completed: true },
+      { id: "3-3", title: "Implement new endpoints", completed: true },
+      { id: "3-4", title: "Update documentation", completed: true },
+      { id: "3-5", title: "Migration scripts", completed: true },
+      { id: "3-6", title: "Testing and deployment", completed: true },
+    ],
   },
   {
     id: "4",
@@ -50,8 +72,17 @@ export const projects: Project[] = [
     progress: 25,
     budget: {
       current: 40000,
-      spent: 45000, // Way over budget!
+      spent: 45000,
     },
+    taskCount: 15,
+    completedTasks: 3,
+    tasks: [
+      { id: "4-1", title: "Schema analysis", completed: true },
+      { id: "4-2", title: "Migration plan", completed: true },
+      { id: "4-3", title: "Backup procedures", completed: true },
+      { id: "4-4", title: "Data transformation scripts", completed: false },
+      { id: "4-5", title: "Testing environment setup", completed: false },
+    ],
   },
   {
     id: "5",
@@ -63,7 +94,14 @@ export const projects: Project[] = [
     progress: 15,
     budget: {
       current: 80000,
-      spent: 85000, // Over budget even though cancelled
+      spent: 85000,
     },
+    taskCount: 8,
+    completedTasks: 1,
+    tasks: [
+      { id: "5-1", title: "Requirements gathering", completed: true },
+      { id: "5-2", title: "API documentation review", completed: false },
+      { id: "5-3", title: "Integration architecture", completed: false },
+    ],
   },
 ]

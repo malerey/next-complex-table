@@ -1,12 +1,8 @@
 # Complex Table Playground
 
-## The Plan (loosely)
+I've built incredibly complex tables for clients in the past, but never had the chance to publish them or plan one myself from scratch and make all the decisions. This is my playground to build the table I've always wanted to create, while also practicing a product mindset - building iteratively based on real usage rather than over-engineering upfront.
 
-Build a project management table that doesn't suck. Will probably get very complex.
-
-## The Why
-
-I've built incredibly complex tables for clients in the past, but never had the chance to publish them or plan one myself from scratch and make all the decisions. This is my playground to build the table I've always wanted to create, while also practicing a product mindset - building iteratively based on real usage rather than over-engineering upfront, and imagining the real needs of real users that need a Project Management solution.
+Starting simple and adding features as I think of them or get annoyed by limitations.
 
 ## Current Status
 
@@ -14,8 +10,13 @@ I've built incredibly complex tables for clients in the past, but never had the 
 - [x] ESLint + Prettier configured
 - [x] TanStack Table setup
 - [x] Basic project table with status
-- [x] Tailwind CSS basic styling
+- [x] Tailwind CSS styling
+- [x] Expandable task details
 - [ ] Everything else...
+
+## The Plan (loosely)
+
+Build a project management table that doesn't suck. Will probably get very complex.
 
 ### Features I Want to Add Eventually:
 
@@ -36,10 +37,10 @@ I've built incredibly complex tables for clients in the past, but never had the 
 
 ## Running
 
-```bash
+\`\`\`bash
 npm install
 npm run dev
-```
+\`\`\`
 
 ## Development Journey
 
@@ -76,3 +77,14 @@ Discovery: Progress percentages are meaningless without knowing budgets
 - Simple "3/8 tasks" display
 
 Discovery: Task counts are useless - I need to see WHAT the actual tasks are!
+
+### Phase 4: "We Need Task Details" ✅
+
+**Added expandable task breakdown:**
+
+- Basic Task interface: `{ id, title, completed }`
+- Expandable rows with + / - buttons and tooltips
+- Task visualization with checkmarks and circles
+- Real task data instead of just counts
+
+Discovery: I need to know who's doing what task and when they're due!

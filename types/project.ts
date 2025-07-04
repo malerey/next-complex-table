@@ -1,3 +1,5 @@
+import type { Task } from "./task"
+
 export interface Project {
   id: string
   name: string
@@ -10,4 +12,7 @@ export interface Project {
     current: number
     spent: number
   }
+  taskCount: number
+  completedTasks: number
+  tasks: Task[]
 }
