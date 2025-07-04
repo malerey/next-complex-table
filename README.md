@@ -53,10 +53,18 @@ npm run dev
 
 **First discovery:** _"I can't tell which projects are important - they all look the same!"_
 
-- Added simple `status` field: active vs completed
-- Added basic color coding (green/yellow badges)
+- Added simple `status` field: idea, active, paused, completed, cancelled
+- Added basic color system (gray, blue, yellow, green, red)
 
-**Second discovery:** _"Wait, some projects are just ideas, others are paused... binary isn't enough!"_
+### Phase 2: "We Need More Context" ✅
 
-- Expanded to 5 status options: idea, active, paused, completed, cancelled
-- Better color system (gray, blue, yellow, green, red)
+**After using status for a while, got frustrated:**
+_"I can see the status, but I have no idea WHEN these projects are due or WHO is responsible!"_
+
+**Added basic project management context:**
+
+- `startDate`, `endDate` fields because stakeholders kept asking "when will this be done?"
+- `owner` field because "who's responsible for this?"
+- `progress` percentage to track completion
+- Added progress bars and better date formatting
+- Discovery: "Progress percentages are meaningless without knowing budgets!"

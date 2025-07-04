@@ -23,6 +23,14 @@ const getStatusStyles = (status: Project["status"]) => {
   }
 }
 
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+}
+
 const columns = [
   columnHelper.accessor("name", {
     header: "Project Name",
@@ -35,6 +43,34 @@ const columns = [
         <span className={`px-2 py-1 rounded text-xs font-bold ${getStatusStyles(status)}`}>
           {status.charAt(0).toUpperCase() + status.slice(1)}
         </span>
+      )
+    },
+  }),
+  columnHelper.accessor("owner", {
+    header: "Owner",
+  }),
+  columnHelper.accessor("startDate", {
+    header: "Start Date",
+    cell: (info) => formatDate(info.getValue()),
+  }),
+  columnHelper.accessor("endDate", {
+    header: "End Date",
+    cell: (info) => formatDate(info.getValue()),
+  }),
+  columnHelper.accessor("progress", {
+    header: "Progress",
+    cell: (info) => {
+      const progress = info.getValue()
+      return (
+        <div className="flex items-center gap-2">
+          <div className="w-16 bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <span className="text-sm text-gray-600">{progress}%</span>
+        </div>
       )
     },
   }),
@@ -53,7 +89,7 @@ export function Table() {
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id} className="border border-gray-300 p-3 text-left bg-gray-50">
+              <th key={header.id} className="border border-gray-300 p-3 text-left bg-gray-50 text-sm font-medium">
                 {flexRender(header.column.columnDef.header, header.getContext())}
               </th>
             ))}
@@ -62,9 +98,9 @@ export function Table() {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
+          <tr key={row.id} className="hover:bg-gray-50">
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="border border-gray-300 p-3">
+              <td key={cell.id} className="border border-gray-300 p-3 text-sm">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
