@@ -1,21 +1,32 @@
 /** @type {import('tailwindcss').Config} */
+const defaultConfig = require('shadcn/ui/tailwind.config')
+
 module.exports = {
-  darkMode: ['class'],
+  ...defaultConfig,
   content: [
+    ...defaultConfig.content,
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    '*.{js,ts,jsx,tsx,mdx}',
+  ],
+  safelist: [
+    // Project status colors
+    'bg-gray-100',
+    'text-gray-800',
+    'bg-blue-100',
+    'text-blue-800',
+    'bg-yellow-100',
+    'text-yellow-800',
+    'bg-green-100',
+    'text-green-800',
+    'bg-red-100',
+    'text-red-800',
   ],
   theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
-    },
+    ...defaultConfig.theme,
     extend: {
+      ...defaultConfig.theme.extend,
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -56,21 +67,7 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
-        },
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [...defaultConfig.plugins, require('tailwindcss-animate')],
 }
