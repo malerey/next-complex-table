@@ -77,7 +77,7 @@ export const columns = [
     cell: (info) => {
       const tasks = info.row.original.tasks
       const taskCount = tasks.length
-      const completedTasks = tasks.filter((task) => task.completed).length
+      const completedTasks = tasks.filter((task) => task.status === "completed").length
 
       if (taskCount === 0) {
         return <span className="text-gray-400 text-sm">No tasks</span>

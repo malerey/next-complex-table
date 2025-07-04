@@ -13,11 +13,46 @@ export const projects: Project[] = [
       spent: 58000,
     },
     tasks: [
-      { id: "1-1", title: "Design mockups", completed: true, weight: 3 },
-      { id: "1-2", title: "Frontend development", completed: true, weight: 5 },
-      { id: "1-3", title: "Backend API integration", completed: false, weight: 8 },
-      { id: "1-4", title: "User testing", completed: false, weight: 2 },
-      { id: "1-5", title: "Performance optimization", completed: false, weight: 3 },
+      { 
+        id: "1-1", 
+        title: "Design mockups", 
+        status: "completed", 
+        assignee: "Alex Kim", 
+        dueDate: "2024-01-20", 
+        weight: 3 
+      },
+      { 
+        id: "1-2", 
+        title: "Frontend development", 
+        status: "completed", 
+        assignee: "Sarah Chen", 
+        dueDate: "2024-02-10", 
+        weight: 5 
+      },
+      { 
+        id: "1-3", 
+        title: "Backend API integration", 
+        status: "in-progress", 
+        assignee: "Mike Rodriguez", 
+        dueDate: "2024-02-25", 
+        weight: 8 
+      },
+      { 
+        id: "1-4", 
+        title: "User testing", 
+        status: "blocked", 
+        assignee: null, 
+        dueDate: "2024-03-05", 
+        weight: 2 
+      },
+      { 
+        id: "1-5", 
+        title: "Performance optimization", 
+        status: "todo", 
+        assignee: "Jordan Taylor", 
+        dueDate: null, 
+        weight: 3 
+      },
     ],
   },
   {
@@ -45,12 +80,54 @@ export const projects: Project[] = [
       spent: 23500,
     },
     tasks: [
-      { id: "3-1", title: "Audit existing endpoints", completed: true, weight: 2 },
-      { id: "3-2", title: "Design new API structure", completed: true, weight: 5 },
-      { id: "3-3", title: "Implement new endpoints", completed: true, weight: 8 },
-      { id: "3-4", title: "Update documentation", completed: true, weight: 3 },
-      { id: "3-5", title: "Migration scripts", completed: true, weight: 4 },
-      { id: "3-6", title: "Testing and deployment", completed: true, weight: 3 },
+      { 
+        id: "3-1", 
+        title: "Audit existing endpoints", 
+        status: "completed", 
+        assignee: "Alex Kim", 
+        dueDate: "2023-11-15", 
+        weight: 2 
+      },
+      { 
+        id: "3-2", 
+        title: "Design new API structure", 
+        status: "completed", 
+        assignee: "Sarah Chen", 
+        dueDate: "2023-11-30", 
+        weight: 5 
+      },
+      { 
+        id: "3-3", 
+        title: "Implement new endpoints", 
+        status: "completed", 
+        assignee: "Mike Rodriguez", 
+        dueDate: "2023-12-15", 
+        weight: 8 
+      },
+      { 
+        id: "3-4", 
+        title: "Update documentation", 
+        status: "completed", 
+        assignee: "Jordan Taylor", 
+        dueDate: "2023-12-20", 
+        weight: 3 
+      },
+      { 
+        id: "3-5", 
+        title: "Migration scripts", 
+        status: "completed", 
+        assignee: "Alex Kim", 
+        dueDate: "2024-01-05", 
+        weight: 4 
+      },
+      { 
+        id: "3-6", 
+        title: "Testing and deployment", 
+        status: "completed", 
+        assignee: "Sarah Chen", 
+        dueDate: "2024-01-10", 
+        weight: 3 
+      },
     ],
   },
   {
@@ -65,11 +142,46 @@ export const projects: Project[] = [
       spent: 45000,
     },
     tasks: [
-      { id: "4-1", title: "Schema analysis", completed: true, weight: 3 },
-      { id: "4-2", title: "Migration plan", completed: true, weight: 2 },
-      { id: "4-3", title: "Backup procedures", completed: true, weight: 4 },
-      { id: "4-4", title: "Data transformation scripts", completed: false, weight: 8 },
-      { id: "4-5", title: "Testing environment setup", completed: false, weight: 5 },
+      { 
+        id: "4-1", 
+        title: "Schema analysis", 
+        status: "completed", 
+        assignee: "Jordan Taylor", 
+        dueDate: "2024-01-15", 
+        weight: 3 
+      },
+      { 
+        id: "4-2", 
+        title: "Migration plan", 
+        status: "completed", 
+        assignee: "Alex Kim", 
+        dueDate: "2024-01-25", 
+        weight: 2 
+      },
+      { 
+        id: "4-3", 
+        title: "Backup procedures", 
+        status: "completed", 
+        assignee: "Mike Rodriguez", 
+        dueDate: "2024-02-01", 
+        weight: 4 
+      },
+      { 
+        id: "4-4", 
+        title: "Data transformation scripts", 
+        status: "blocked", 
+        assignee: "Sarah Chen", 
+        dueDate: "2024-02-15", 
+        weight: 8 
+      },
+      { 
+        id: "4-5", 
+        title: "Testing environment setup", 
+        status: "todo", 
+        assignee: null, 
+        dueDate: "2024-03-01", 
+        weight: 5 
+      },
     ],
   },
   {
@@ -84,9 +196,30 @@ export const projects: Project[] = [
       spent: 85000,
     },
     tasks: [
-      { id: "5-1", title: "Requirements gathering", completed: true, weight: 2 },
-      { id: "5-2", title: "API documentation review", completed: false, weight: 3 },
-      { id: "5-3", title: "Integration architecture", completed: false, weight: 5 },
+      { 
+        id: "5-1", 
+        title: "Requirements gathering", 
+        status: "completed", 
+        assignee: "Sam Wilson", 
+        dueDate: "2023-09-15", 
+        weight: 2 
+      },
+      { 
+        id: "5-2", 
+        title: "API documentation review", 
+        status: "todo", 
+        assignee: "Alex Kim", 
+        dueDate: "2023-10-01", 
+        weight: 3 
+      },
+      { 
+        id: "5-3", 
+        title: "Integration architecture", 
+        status: "todo", 
+        assignee: null, 
+        dueDate: "2023-10-15", 
+        weight: 5 
+      },
     ],
   },
 ]

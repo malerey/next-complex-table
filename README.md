@@ -11,7 +11,8 @@ Starting simple and adding features as I think of them or get annoyed by limitat
 - [x] TanStack Table setup
 - [x] Basic project table with status
 - [x] Tailwind CSS styling
-- [x] Expandable task details
+- [x] Expandable task details with full task management
+- [x] CI/CD pipeline with GitHub Actions + Vercel
 - [ ] Everything else...
 
 ## The Plan (loosely)
@@ -60,6 +61,13 @@ npm run dev
 4. Vercel automatically deploys to production
 5. Live site updates in ~2 minutes
 
+## Running
+
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
 ## Development Journey
 
 ### Phase 1: "Just Get Projects Visible" ✅
@@ -98,11 +106,13 @@ Discovery: Task counts are useless - I need to see WHAT the actual tasks are!
 
 ### Phase 4: "We Need Task Details" ✅
 
-**Added expandable task breakdown:**
+**Added comprehensive task management:**
 
-- Basic Task interface: `{ id, title, completed }`
-- Expandable rows with + / - buttons and tooltips
-- Task visualization with checkmarks and circles
-- Real task data instead of just counts
+- Task interface with status, assignee, due dates, and weights
+- Expandable rows showing detailed task breakdown
+- Task status system: todo, in-progress, blocked, completed
+- Visual indicators for task status and overdue items
+- Weighted progress calculation based on completed tasks
+- Assignee tracking with unassigned task handling
 
-Discovery: I need to know who's doing what task and when they're due!
+Discovery: Need better task organization and bulk operations!

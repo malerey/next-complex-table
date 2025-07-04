@@ -1,6 +1,8 @@
 export interface Task {
   id: string
   title: string
-  completed: boolean
+  status: "todo" | "in-progress" | "blocked" | "completed"
+  assignee: string | null
+  dueDate: string | null
   weight: number
 }
