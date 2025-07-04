@@ -12,7 +12,5 @@ export interface Project {
     current: number
     spent: number
   }
-  taskCount: number
-  completedTasks: number
   tasks: Task[]
 }

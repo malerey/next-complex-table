@@ -13,8 +13,6 @@ export const projects: Project[] = [
       current: 50000,
       spent: 58000,
     },
-    taskCount: 12,
-    completedTasks: 8,
     tasks: [
       { id: "1-1", title: "Design mockups", completed: true },
       { id: "1-2", title: "Frontend development", completed: true },
@@ -35,8 +33,6 @@ export const projects: Project[] = [
       current: 120000,
       spent: 0,
     },
-    taskCount: 0,
-    completedTasks: 0,
     tasks: [],
   },
   {
@@ -51,8 +47,6 @@ export const projects: Project[] = [
       current: 25000,
       spent: 23500,
     },
-    taskCount: 6,
-    completedTasks: 6,
     tasks: [
       { id: "3-1", title: "Audit existing endpoints", completed: true },
       { id: "3-2", title: "Design new API structure", completed: true },
@@ -74,8 +68,6 @@ export const projects: Project[] = [
       current: 40000,
       spent: 45000,
     },
-    taskCount: 15,
-    completedTasks: 3,
     tasks: [
       { id: "4-1", title: "Schema analysis", completed: true },
       { id: "4-2", title: "Migration plan", completed: true },
@@ -96,8 +88,6 @@ export const projects: Project[] = [
       current: 80000,
       spent: 85000,
     },
-    taskCount: 8,
-    completedTasks: 1,
     tasks: [
       { id: "5-1", title: "Requirements gathering", completed: true },
       { id: "5-2", title: "API documentation review", completed: false },

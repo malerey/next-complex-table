@@ -7,7 +7,7 @@ import {
   flexRender,
   createColumnHelper,
   getExpandedRowModel,
-  ExpandedState,
+  type ExpandedState,
 } from "@tanstack/react-table"
 import { projects } from "@/data/projects"
 import type { Project } from "@/types/project"
@@ -113,7 +113,10 @@ const columns = [
     id: "tasks",
     header: "Tasks",
     cell: (info) => {
-      const { taskCount, completedTasks } = info.row.original
+      const tasks = info.row.original.tasks
+      const taskCount = tasks.length
+      const completedTasks = tasks.filter((task) => task.completed).length
+
       if (taskCount === 0) {
         return <span className="text-gray-400 text-sm">No tasks</span>
       }
@@ -143,8 +146,7 @@ const columns = [
 ]
 
 export function Table() {
-
-const [expanded, setExpanded] = useState<ExpandedState>({})
+  const [expanded, setExpanded] = useState<ExpandedState>({})
 
   const table = useReactTable({
     data: projects,
