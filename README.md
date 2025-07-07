@@ -122,3 +122,4 @@ Discovery: Need better task organization and a more usable UI
 - **Persistent preferences**: All table state saved to localStorage and restored on reload
 - **Better task organization**: Tasks grouped by category in expanded view
 - **Enhanced filtering**: Multi-select filters for status, assignee, and category
+- **Column resizing**
