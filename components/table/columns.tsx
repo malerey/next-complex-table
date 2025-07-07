@@ -3,6 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import type { Project } from "@/types/project"
 import { formatDate, formatCurrency, getStatusStyles, calculateProgress } from "@/utils/formatters"
+import { TruncatedCell } from "@/components/TruncatedCell"
 
 const columnHelper = createColumnHelper<Project>()
 
@@ -10,6 +11,10 @@ export const columns = [
   columnHelper.display({
     id: "expander",
     header: "",
+    size: 50,
+    minSize: 40,
+    maxSize: 60,
+    enableResizing: false, // Don't allow resizing the expander column
     cell: ({ row }) => {
       if (row.original.tasks.length === 0) {
         return <div className="w-6"></div>
@@ -32,9 +37,20 @@ export const columns = [
   }),
   columnHelper.accessor("name", {
     header: "Project Name",
+    size: 200,
+    minSize: 80,
+    maxSize: 400,
+    enableResizing: true,
+    cell: (info) => (
+      <TruncatedCell>{info.getValue()}</TruncatedCell>
+    ),
   }),
   columnHelper.accessor("status", {
     header: "Status",
+    size: 100,
+    minSize: 60,
+    maxSize: 150,
+    enableResizing: true,
     cell: (info) => {
       const status = info.getValue()
       return (
@@ -46,27 +62,42 @@ export const columns = [
   }),
   columnHelper.accessor("owner", {
     header: "Owner",
+    size: 150,
+    minSize: 60,
+    maxSize: 200,
+    enableResizing: true,
+    cell: (info) => (
+      <TruncatedCell>{info.getValue()}</TruncatedCell>
+    ),
   }),
   columnHelper.accessor("endDate", {
     header: "Due Date",
+    size: 120,
+    minSize: 80,
+    maxSize: 160,
+    enableResizing: true,
     cell: (info) => formatDate(info.getValue()),
   }),
   columnHelper.display({
     id: "progress",
     header: "Progress",
+    size: 120,
+    minSize: 80,
+    maxSize: 180,
+    enableResizing: true,
     cell: (info) => {
       const tasks = info.row.original.tasks
       const progress = calculateProgress(tasks)
 
       return (
-        <div className="flex items-center gap-2">
-          <div className="w-16 bg-gray-200 rounded-full h-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex-1 bg-gray-200 rounded-full h-2 min-w-[40px]">
             <div
               className="bg-blue-500 h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <span className="text-sm text-gray-600">{progress}%</span>
+          <span className="text-sm text-gray-600 flex-shrink-0">{progress}%</span>
         </div>
       )
     },
@@ -74,6 +105,10 @@ export const columns = [
   columnHelper.display({
     id: "tasks",
     header: "Tasks",
+    size: 80,
+    minSize: 50,
+    maxSize: 120,
+    enableResizing: true,
     cell: (info) => {
       const tasks = info.row.original.tasks
       const taskCount = tasks.length
@@ -91,6 +126,10 @@ export const columns = [
   }),
   columnHelper.accessor("budget", {
     header: "Budget",
+    size: 140,
+    minSize: 80,
+    maxSize: 200,
+    enableResizing: true,
     cell: (info) => {
       const budget = info.getValue()
       const isOverBudget = budget.spent > budget.current

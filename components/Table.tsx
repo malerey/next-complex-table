@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useEffect } from "react"
 import {
   useReactTable,
   getCoreRowModel,
@@ -19,7 +19,7 @@ import { filterProjects, getUniqueAssignees, getUniqueCategories } from "@/utils
 
 export function Table() {
   const { expanded, setExpanded } = useTableState()
-  const { preferences, updateColumnVisibility, updateSorting, updateFilters } = useTablePreferences()
+  const { preferences, updateColumnVisibility, updateColumnSizing, updateSorting, updateFilters } = useTablePreferences()
 
   // Filter projects based on current filters
   const filteredProjects = useMemo(() => {
@@ -45,13 +45,35 @@ export function Table() {
       const newVisibility = typeof updater === "function" ? updater(preferences.columnVisibility) : updater
       updateColumnVisibility(newVisibility)
     },
+    onColumnSizingChange: (updater) => {
+      const newSizing = typeof updater === "function" ? updater(preferences.columnSizing) : updater
+      updateColumnSizing(newSizing)
+    },
     state: {
       expanded,
       sorting: preferences.sorting,
       columnVisibility: preferences.columnVisibility,
+      columnSizing: preferences.columnSizing,
     },
     getRowCanExpand: (row) => row.original.tasks.length > 0,
+    enableColumnResizing: true,
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltr',
   })
+
+  // Handle body class during column resizing for better UX
+  useEffect(() => {
+    const isResizing = table.getState().columnSizingInfo.isResizingColumn
+    if (isResizing) {
+      document.body.classList.add('column-resizing')
+    } else {
+      document.body.classList.remove('column-resizing')
+    }
+    
+    return () => {
+      document.body.classList.remove('column-resizing')
+    }
+  }, [table.getState().columnSizingInfo.isResizingColumn])
 
   return (
     <div>
@@ -64,13 +86,17 @@ export function Table() {
 
       <ColumnControls table={table} />
 
-      <div className="bg-white border rounded-lg overflow-hidden">
-        <table className="w-full border-collapse">
+      <div className="bg-white border rounded-lg relative">
+        <table className="w-full border-collapse table-fixed">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="border border-gray-300 p-3 text-left bg-gray-50 text-sm font-medium">
+                  <th 
+                    key={header.id} 
+                    className="border border-gray-300 p-3 text-left bg-gray-50 text-sm font-medium relative"
+                    style={{ width: `${(header.getSize() / table.getCenterTotalSize()) * 100}%` }}
+                  >
                     {header.isPlaceholder ? null : (
                       <div
                         className={
@@ -89,6 +115,27 @@ export function Table() {
                         )}
                       </div>
                     )}
+                    {/* Column resize handle */}
+                    {header.column.getCanResize() && (
+                      <div
+                        onMouseDown={header.getResizeHandler()}
+                        onTouchStart={header.getResizeHandler()}
+                        className={`absolute right-0 top-0 h-full w-2 cursor-col-resize select-none touch-none group transition-all ${
+                          header.column.getIsResizing() ? 'bg-blue-100' : 'hover:bg-gray-100'
+                        }`}
+                        style={{
+                          transform: 'translateX(1px)',
+                        }}
+                      >
+                        <div 
+                          className={`h-full ml-auto ${
+                            header.column.getIsResizing() 
+                              ? 'bg-blue-500 w-1' 
+                              : 'bg-transparent group-hover:bg-blue-400 w-0.5 transition-all'
+                          }`}
+                        />
+                      </div>
+                    )}
                   </th>
                 ))}
               </tr>
@@ -98,11 +145,45 @@ export function Table() {
             {table.getRowModel().rows.map((row) => (
               <>
                 <tr key={row.id} className="hover:bg-gray-50">
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="border border-gray-300 p-3 text-sm">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
+                  {row.getVisibleCells().map((cell, cellIndex) => {
+                    // Get the corresponding header for this cell to access resize handler
+                    const headerGroup = table.getHeaderGroups()[0]
+                    const header = headerGroup?.headers[cellIndex]
+                    
+                    return (
+                      <td 
+                        key={cell.id} 
+                        className="border border-gray-300 p-3 text-sm relative"
+                        style={{ width: `${(cell.column.getSize() / table.getCenterTotalSize()) * 100}%` }}
+                      >
+                        <div className="overflow-hidden">
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </div>
+                        
+                        {/* Column resize handle for table cells */}
+                        {cell.column.getCanResize() && header && (
+                          <div
+                            onMouseDown={header.getResizeHandler()}
+                            onTouchStart={header.getResizeHandler()}
+                            className={`absolute right-0 top-0 h-full w-2 cursor-col-resize select-none touch-none group transition-all ${
+                              cell.column.getIsResizing() ? 'bg-blue-100' : 'hover:bg-gray-100'
+                            }`}
+                            style={{
+                              transform: 'translateX(1px)',
+                            }}
+                          >
+                            <div 
+                              className={`h-full ml-auto ${
+                                cell.column.getIsResizing() 
+                                  ? 'bg-blue-500 w-1' 
+                                  : 'bg-transparent group-hover:bg-blue-400 w-0.5 transition-all'
+                              }`}
+                            />
+                          </div>
+                        )}
+                      </td>
+                    )
+                  })}
                 </tr>
                 {row.getIsExpanded() && (
                   <ExpandedRow

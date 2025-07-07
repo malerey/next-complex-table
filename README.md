@@ -39,7 +39,7 @@ Build a project management table that doesn't suck. Will probably get very compl
 
 ## Deployment
 
-**Live Demo:** [https://your-actual-vercel-url.vercel.app](https://your-actual-vercel-url.vercel.app)
+**Live Demo:** [https://next-complex-table.vercel.app/](https://next-complex-table.vercel.app/)
 
 ### CI/CD Pipeline
 
@@ -122,7 +122,3 @@ Discovery: Need better task organization and a more usable UI
 - **Persistent preferences**: All table state saved to localStorage and restored on reload
 - **Better task organization**: Tasks grouped by category in expanded view
 - **Enhanced filtering**: Multi-select filters for status, assignee, and category
-
-Discovery: I need bulk operations and editing!
-
-That's it for now. Let's see how far this rabbit hole goes.

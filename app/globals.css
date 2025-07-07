@@ -6,6 +6,45 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Table resizing styles */
+.resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  background: transparent;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+  transition: background-color 0.2s;
+}
+
+.resizer:hover {
+  background-color: rgb(59 130 246); /* Blue-500 */
+}
+
+.resizer.isResizing {
+  background-color: rgb(59 130 246); /* Blue-500 */
+}
+
+/* Ensure table cells handle overflow properly */
+.table-cell-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Disable text selection during column resize */
+body.column-resizing {
+  user-select: none;
+  cursor: col-resize !important;
+}
+
+body.column-resizing * {
+  cursor: col-resize !important;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

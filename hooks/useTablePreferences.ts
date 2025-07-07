@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import type { TablePreferences } from "@/types/preferences"
-import type { SortingState, VisibilityState } from "@tanstack/react-table"
+import type { SortingState, VisibilityState, ColumnSizingState } from "@tanstack/react-table"
 
 const DEFAULT_PREFERENCES: TablePreferences = {
   columnVisibility: {
@@ -14,6 +14,16 @@ const DEFAULT_PREFERENCES: TablePreferences = {
     progress: true,
     tasks: true,
     budget: true,
+  },
+  columnSizing: {
+    expander: 50,
+    name: 200,
+    status: 100,
+    owner: 150,
+    endDate: 120,
+    progress: 120,
+    tasks: 80,
+    budget: 140,
   },
   sorting: [],
   filters: {
@@ -51,6 +61,10 @@ export function useTablePreferences() {
     updatePreferences({ columnVisibility: visibility })
   }
 
+  const updateColumnSizing = (sizing: ColumnSizingState) => {
+    updatePreferences({ columnSizing: sizing })
+  }
+
   const updateSorting = (sorting: SortingState) => {
     updatePreferences({ sorting })
   }
@@ -62,6 +76,7 @@ export function useTablePreferences() {
   return {
     preferences,
     updateColumnVisibility,
+    updateColumnSizing,
     updateSorting,
     updateFilters,
   }
