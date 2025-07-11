@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,7 +8,7 @@ module.exports = {
     '*.{js,ts,jsx,tsx,mdx}',
   ],
   safelist: [
-    // Project status colors
+    // Project status colors - light mode
     'bg-gray-100',
     'text-gray-800',
     'bg-blue-100',
@@ -18,6 +19,17 @@ module.exports = {
     'text-green-800',
     'bg-red-100',
     'text-red-800',
+    // Project status colors - dark mode
+    'dark:bg-gray-800',
+    'dark:text-gray-200',
+    'dark:bg-blue-800',
+    'dark:text-blue-200',
+    'dark:bg-yellow-800',
+    'dark:text-yellow-200',
+    'dark:bg-green-800',
+    'dark:text-green-200',
+    'dark:bg-red-800',
+    'dark:text-red-200',
   ],
   theme: {
     extend: {

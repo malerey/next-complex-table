@@ -22,13 +22,13 @@ export const columns = [
       return (
         <button
           onClick={row.getToggleExpandedHandler()}
-          className="w-6 h-6 flex items-center justify-center rounded hover:bg-gray-200 transition-colors group relative"
+          className="w-6 h-6 flex items-center justify-center rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors group relative"
           title={row.getIsExpanded() ? "Hide tasks" : "Show tasks"}
         >
-          <span className="text-gray-600 group-hover:text-gray-800 transition-colors">
+          <span className="text-gray-600 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-100 transition-colors">
             {row.getIsExpanded() ? "−" : "+"}
           </span>
-          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-300 text-white dark:text-gray-800 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10 shadow-md">
             {row.getIsExpanded() ? "Hide tasks" : "Show tasks"}
           </div>
         </button>
@@ -91,13 +91,13 @@ export const columns = [
 
       return (
         <div className="flex items-center gap-2 min-w-0">
-          <div className="flex-1 bg-gray-200 rounded-full h-2 min-w-[40px]">
+          <div className="flex-1 bg-secondary rounded-full h-2 min-w-[40px]">
             <div
-              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+              className="bg-primary h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <span className="text-sm text-gray-600 flex-shrink-0">{progress}%</span>
+          <span className="text-sm text-muted-foreground flex-shrink-0">{progress}%</span>
         </div>
       )
     },
@@ -115,7 +115,7 @@ export const columns = [
       const completedTasks = tasks.filter((task) => task.status === "completed").length
 
       if (taskCount === 0) {
-        return <span className="text-gray-400 text-sm">No tasks</span>
+        return <span className="text-muted-foreground text-sm">No tasks</span>
       }
       return (
         <span className="text-sm">
@@ -136,8 +136,8 @@ export const columns = [
 
       return (
         <div className="text-right">
-          <div className="text-sm font-medium">{formatCurrency(budget.current)}</div>
-          <div className={`text-xs ${isOverBudget ? "text-red-600" : "text-gray-500"}`}>
+          <div className="text-sm font-medium text-foreground">{formatCurrency(budget.current)}</div>
+          <div className={`text-xs ${isOverBudget ? "text-destructive" : "text-muted-foreground"}`}>
             {formatCurrency(budget.spent)} spent
           </div>
         </div>

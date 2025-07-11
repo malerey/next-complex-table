@@ -86,7 +86,7 @@ export function Table() {
 
       <ColumnControls table={table} />
 
-      <div className="bg-white border rounded-lg relative">
+      <div className="bg-card border border-border rounded-lg relative shadow-sm">
         <table className="w-full border-collapse table-fixed">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -94,7 +94,7 @@ export function Table() {
                 {headerGroup.headers.map((header) => (
                   <th 
                     key={header.id} 
-                    className="border border-gray-300 p-3 text-left bg-gray-50 text-sm font-medium relative"
+                    className="border border-border p-3 text-left bg-muted text-sm font-medium relative text-muted-foreground"
                     style={{ width: `${(header.getSize() / table.getCenterTotalSize()) * 100}%` }}
                   >
                     {header.isPlaceholder ? null : (
@@ -106,7 +106,7 @@ export function Table() {
                       >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {header.column.getCanSort() && (
-                          <span className="text-gray-400">
+                          <span className="text-muted-foreground opacity-60">
                             {{
                               asc: "↑",
                               desc: "↓",
@@ -121,7 +121,7 @@ export function Table() {
                         onMouseDown={header.getResizeHandler()}
                         onTouchStart={header.getResizeHandler()}
                         className={`absolute right-0 top-0 h-full w-2 cursor-col-resize select-none touch-none group transition-all ${
-                          header.column.getIsResizing() ? 'bg-blue-100' : 'hover:bg-gray-100'
+                          header.column.getIsResizing() ? 'bg-primary/20' : 'hover:bg-muted'
                         }`}
                         style={{
                           transform: 'translateX(1px)',
@@ -130,8 +130,8 @@ export function Table() {
                         <div 
                           className={`h-full ml-auto ${
                             header.column.getIsResizing() 
-                              ? 'bg-blue-500 w-1' 
-                              : 'bg-transparent group-hover:bg-blue-400 w-0.5 transition-all'
+                              ? 'bg-primary w-1' 
+                              : 'bg-transparent group-hover:bg-primary/60 w-0.5 transition-all'
                           }`}
                         />
                       </div>
@@ -144,7 +144,7 @@ export function Table() {
           <tbody>
             {table.getRowModel().rows.map((row) => (
               <>
-                <tr key={row.id} className="hover:bg-gray-50">
+                <tr key={row.id} className="hover:bg-muted/50 transition-colors">
                   {row.getVisibleCells().map((cell, cellIndex) => {
                     // Get the corresponding header for this cell to access resize handler
                     const headerGroup = table.getHeaderGroups()[0]
@@ -153,7 +153,7 @@ export function Table() {
                     return (
                       <td 
                         key={cell.id} 
-                        className="border border-gray-300 p-3 text-sm relative"
+                        className="border border-border p-3 text-sm relative bg-card text-card-foreground"
                         style={{ width: `${(cell.column.getSize() / table.getCenterTotalSize()) * 100}%` }}
                       >
                         <div className="overflow-hidden">
@@ -166,7 +166,7 @@ export function Table() {
                             onMouseDown={header.getResizeHandler()}
                             onTouchStart={header.getResizeHandler()}
                             className={`absolute right-0 top-0 h-full w-2 cursor-col-resize select-none touch-none group transition-all ${
-                              cell.column.getIsResizing() ? 'bg-blue-100' : 'hover:bg-gray-100'
+                              cell.column.getIsResizing() ? 'bg-primary/20' : 'hover:bg-muted'
                             }`}
                             style={{
                               transform: 'translateX(1px)',
@@ -175,8 +175,8 @@ export function Table() {
                             <div 
                               className={`h-full ml-auto ${
                                 cell.column.getIsResizing() 
-                                  ? 'bg-blue-500 w-1' 
-                                  : 'bg-transparent group-hover:bg-blue-400 w-0.5 transition-all'
+                                  ? 'bg-primary w-1' 
+                                  : 'bg-transparent group-hover:bg-primary/60 w-0.5 transition-all'
                               }`}
                             />
                           </div>
@@ -198,7 +198,7 @@ export function Table() {
         </table>
       </div>
 
-      <div className="mt-4 text-sm text-gray-600">
+      <div className="mt-4 text-sm text-muted-foreground">
         Showing {table.getRowModel().rows.length} of {projects.length} projects
       </div>
     </div>

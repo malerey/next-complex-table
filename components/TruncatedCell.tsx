@@ -39,9 +39,9 @@ export function TruncatedCell({ children, className = "" }: TruncatedCellProps) 
       </div>
       
       {showTooltip && isTruncated && (
-        <div className="absolute bottom-full left-0 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded-md shadow-lg z-50 whitespace-nowrap max-w-sm pointer-events-none">
+        <div className="absolute bottom-full left-0 mb-2 px-2 py-1 bg-popover border border-border text-popover-foreground text-xs rounded-md shadow-lg z-50 whitespace-nowrap max-w-sm pointer-events-none">
           {children}
-          <div className="absolute top-full left-2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-gray-800"></div>
+          <div className="absolute top-full left-2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-popover"></div>
         </div>
       )}
     </div>

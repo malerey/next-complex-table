@@ -53,19 +53,19 @@ export function ColumnControls({ table }: ColumnControlsProps) {
   }
 
   return (
-    <div className="bg-white p-4 border rounded-lg mb-4">
+    <div className="bg-card p-4 border border-border rounded-lg mb-4 shadow-sm">
       <div className="flex justify-between items-center mb-3">
-        <h3 className="text-sm font-medium">Column Controls</h3>
+        <h3 className="text-sm font-medium text-card-foreground">Column Controls</h3>
         <div className="flex gap-2">
           <button
             onClick={() => setShowAdvanced(!showAdvanced)}
-            className="text-xs px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-800 rounded-md transition-colors"
+            className="text-xs px-3 py-1 bg-primary/10 hover:bg-primary/20 text-primary rounded-md transition-colors"
           >
             {showAdvanced ? 'Hide' : 'Show'} Advanced
           </button>
           <button
             onClick={resetColumnSizes}
-            className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+            className="text-xs px-3 py-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-md transition-colors"
           >
             Reset Sizes
           </button>
@@ -73,24 +73,24 @@ export function ColumnControls({ table }: ColumnControlsProps) {
       </div>
 
       {/* Quick Presets - Always Visible */}
-      <div className="mb-4 p-3 bg-gray-50 rounded-md">
-        <h4 className="text-xs font-medium text-gray-700 mb-2">Quick Presets</h4>
+      <div className="mb-4 p-3 bg-muted rounded-md">
+        <h4 className="text-xs font-medium text-muted-foreground mb-2">Quick Presets</h4>
         <div className="flex gap-2">
           <button
             onClick={() => applyPreset('compact')}
-            className="text-xs px-3 py-1 bg-white border hover:bg-gray-50 rounded-md transition-colors"
+            className="text-xs px-3 py-1 bg-card border border-border hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
           >
             Compact
           </button>
           <button
             onClick={() => applyPreset('comfortable')}
-            className="text-xs px-3 py-1 bg-white border hover:bg-gray-50 rounded-md transition-colors"
+            className="text-xs px-3 py-1 bg-card border border-border hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
           >
             Comfortable
           </button>
           <button
             onClick={() => applyPreset('wide')}
-            className="text-xs px-3 py-1 bg-white border hover:bg-gray-50 rounded-md transition-colors"
+            className="text-xs px-3 py-1 bg-card border border-border hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
           >
             Wide
           </button>
@@ -98,13 +98,13 @@ export function ColumnControls({ table }: ColumnControlsProps) {
       </div>
 
       {showAdvanced && (
-        <div className="mb-4 p-3 bg-blue-50 rounded-md">
-          <h4 className="text-xs font-medium text-gray-700 mb-3">Advanced Controls</h4>
+        <div className="mb-4 p-3 bg-primary/5 rounded-md border border-primary/20">
+          <h4 className="text-xs font-medium text-card-foreground mb-3">Advanced Controls</h4>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Column Visibility */}
             <div>
-              <h5 className="text-xs font-medium text-gray-700 mb-2">Column Visibility</h5>
+              <h5 className="text-xs font-medium text-muted-foreground mb-2">Column Visibility</h5>
               <div className="grid grid-cols-2 gap-2">
                 {table
                   .getAllColumns()
@@ -115,9 +115,9 @@ export function ColumnControls({ table }: ColumnControlsProps) {
                         type="checkbox"
                         checked={column.getIsVisible()}
                         onChange={column.getToggleVisibilityHandler()}
-                        className="mr-2"
+                        className="mr-2 rounded border-border text-primary focus:ring-primary focus:ring-2 focus:ring-offset-2 focus:ring-offset-background"
                       />
-                      <span className="text-xs">{column.columnDef.header?.toString() || column.id}</span>
+                      <span className="text-xs text-card-foreground">{column.columnDef.header?.toString() || column.id}</span>
                     </label>
                   ))}
               </div>
@@ -125,7 +125,7 @@ export function ColumnControls({ table }: ColumnControlsProps) {
 
             {/* Column Widths */}
             <div>
-              <h5 className="text-xs font-medium text-gray-700 mb-2">Current Widths</h5>
+              <h5 className="text-xs font-medium text-muted-foreground mb-2">Current Widths</h5>
               <div className="space-y-2 max-h-32 overflow-y-auto">
                 {table
                   .getAllColumns()
@@ -139,15 +139,15 @@ export function ColumnControls({ table }: ColumnControlsProps) {
                     
                     return (
                       <div key={column.id} className="flex items-center justify-between">
-                        <span className="text-xs text-gray-600 min-w-[60px]">
+                        <span className="text-xs text-muted-foreground min-w-[60px]">
                           {column.columnDef.header?.toString() || column.id}:
                         </span>
                         <div className="text-xs font-mono flex items-center gap-1">
-                          <span className={isAtMin ? 'text-orange-600' : 'text-gray-500'}>
+                          <span className={isAtMin ? 'text-destructive' : 'text-muted-foreground'}>
                             {percentage}%
                           </span>
                           {isAtMin && (
-                            <span className="text-orange-500 text-xs" title="At minimum width">⚠</span>
+                            <span className="text-destructive text-xs" title="At minimum width">⚠</span>
                           )}
                         </div>
                       </div>
@@ -157,16 +157,16 @@ export function ColumnControls({ table }: ColumnControlsProps) {
             </div>
           </div>
           
-          <div className="mt-3 pt-3 border-t">
-            <div className="text-xs text-gray-600">
+          <div className="mt-3 pt-3 border-t border-border">
+            <div className="text-xs text-muted-foreground">
               Table width: 100% (responsive). Widths shown as percentages.
             </div>
           </div>
         </div>
       )}
       
-      <div className="mt-3 pt-3 border-t">
-        <p className="text-xs text-gray-500">
+      <div className="mt-3 pt-3 border-t border-border">
+        <p className="text-xs text-muted-foreground">
           💡 Drag column borders to resize. Table always uses full width - other columns adjust automatically.
         </p>
       </div>

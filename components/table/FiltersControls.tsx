@@ -30,8 +30,8 @@ export function FilterControls({ filters, onFiltersChange, availableAssignees, a
       onClick={onClick}
       className={`px-3 py-1 rounded text-xs font-medium border transition-colors ${
         isSelected
-          ? 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+          ? 'bg-primary text-primary-foreground border-primary hover:bg-primary/90'
+          : 'bg-card text-card-foreground border-border hover:bg-accent hover:text-accent-foreground'
       }`}
     >
       {children}
@@ -39,12 +39,12 @@ export function FilterControls({ filters, onFiltersChange, availableAssignees, a
   )
 
   return (
-    <div className="bg-white p-4 border rounded-lg mb-4">
-      <h3 className="text-sm font-medium mb-3">Filters</h3>
+    <div className="bg-card p-4 border border-border rounded-lg mb-4 shadow-sm">
+      <h3 className="text-sm font-medium mb-3 text-card-foreground">Filters</h3>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Status Filter */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-2">Project Status</label>
+          <label className="block text-xs font-medium text-muted-foreground mb-2">Project Status</label>
           <div className="flex flex-wrap gap-2">
             {statusOptions.map((status) => (
               <FilterButton
@@ -60,7 +60,7 @@ export function FilterControls({ filters, onFiltersChange, availableAssignees, a
 
         {/* Assignee Filter */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-2">Assignee</label>
+          <label className="block text-xs font-medium text-muted-foreground mb-2">Assignee</label>
           <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
             {availableAssignees.map((assignee) => (
               <FilterButton
@@ -76,7 +76,7 @@ export function FilterControls({ filters, onFiltersChange, availableAssignees, a
 
         {/* Category Filter */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-2">Task Category</label>
+          <label className="block text-xs font-medium text-muted-foreground mb-2">Task Category</label>
           <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
             {availableCategories.map((category) => (
               <FilterButton
@@ -92,23 +92,23 @@ export function FilterControls({ filters, onFiltersChange, availableAssignees, a
 
         {/* Overdue Filter */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">Special Filters</label>
+          <label className="block text-xs font-medium text-muted-foreground mb-1">Special Filters</label>
           <div className="space-y-2">
             <label className="flex items-center">
               <input
                 type="checkbox"
                 checked={filters.overdue}
                 onChange={(e) => onFiltersChange({ overdue: e.target.checked })}
-                className="mr-2"
+                className="mr-2 rounded border-border text-primary focus:ring-primary focus:ring-2 focus:ring-offset-2 focus:ring-offset-background"
               />
-              <span className="text-xs">Has overdue tasks</span>
+              <span className="text-xs text-card-foreground">Has overdue tasks</span>
             </label>
           </div>
         </div>
       </div>
 
       {/* Clear Filters */}
-      <div className="mt-3 pt-3 border-t">
+      <div className="mt-3 pt-3 border-t border-border">
         <button
           onClick={() =>
             onFiltersChange({
@@ -118,7 +118,7 @@ export function FilterControls({ filters, onFiltersChange, availableAssignees, a
               overdue: false,
             })
           }
-          className="text-xs text-blue-600 hover:text-blue-800"
+          className="text-xs text-primary hover:text-primary/80 transition-colors"
         >
           Clear all filters
         </button>

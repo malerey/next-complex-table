@@ -14,6 +14,7 @@ Starting simple and adding features as I think of them or get annoyed by limitat
 - [x] Expandable task details with full task management
 - [x] CI/CD pipeline with GitHub Actions + Vercel
 - [x] Advanced table features with user preferences
+- [x] Dark/light theme system with persistence
 - [ ] Everything else...
 
 ## The Plan (loosely)
@@ -25,7 +26,7 @@ Build a project management table that doesn't suck. Will probably get very compl
 - **Nested Data**: Expandable rows with tasks, subtasks, dependencies
 - **Advanced Interactions**: Drag-and-drop file uploads, modal inline editing
 - **User Customization**: Resizable columns, column visibility, saved table preferences ✅
-- **Theming**: User-controlled themes saved to profile
+- **Theming**: User-controlled themes saved to profile ✅
 - **Performance**: Virtualization for large datasets, optional pagination
 - **Multi-selection**: Batch operations, bulk editing/deleting
 - **Offline Support**: Queue updates when offline, sync when back online
@@ -123,3 +124,20 @@ Discovery: Need better task organization and a more usable UI
 - **Better task organization**: Tasks grouped by category in expanded view
 - **Enhanced filtering**: Multi-select filters for status, assignee, and category
 - **Column resizing**
+
+Discovery: Still too rigid - need more ways to customize and interact.
+
+### Phase 6: "My Eyes Need Options" ✅
+
+**Added comprehensive theming system:**
+
+- **Dark/light mode toggle**: Animated toggle button with sun/moon icons (because we're not animals)
+- **Theme persistence**: Your eyeball preferences saved to localStorage, because nobody wants to toggle themes every page refresh
+- **SSR-friendly**: Proper hydration handling so the theme doesn't flash like a disco when the page loads
+- **Semantic color system**: CSS custom properties that actually make sense (`--primary`, `--background`, etc.)
+- **Full component theming**: Every single table component respects your theme choice
+- **System preference detection**: Automatically starts with your OS theme preference (fancy!)
+
+Discovery: Dark mode makes everything feel more professional. Also, my eyes don't hurt anymore during late-night coding sessions.
+
+**Next up**: Internationalization, because it will be harder the more I postpone it.
