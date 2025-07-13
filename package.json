@@ -3,7 +3,6 @@
   "author": "Maria Rey",
   "description": "A playground for complex table components in Next.js",
   "version": "0.1.0",
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
