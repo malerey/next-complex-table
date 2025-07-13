@@ -142,58 +142,56 @@ export function Table() {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <>
-                <tr key={row.id} className="hover:bg-muted/50 transition-colors">
-                  {row.getVisibleCells().map((cell, cellIndex) => {
-                    // Get the corresponding header for this cell to access resize handler
-                    const headerGroup = table.getHeaderGroups()[0]
-                    const header = headerGroup?.headers[cellIndex]
-                    
-                    return (
-                      <td 
-                        key={cell.id} 
-                        className="border border-border p-3 text-sm relative bg-card text-card-foreground"
-                        style={{ width: `${(cell.column.getSize() / table.getCenterTotalSize()) * 100}%` }}
-                      >
-                        <div className="overflow-hidden">
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </div>
-                        
-                        {/* Column resize handle for table cells */}
-                        {cell.column.getCanResize() && header && (
-                          <div
-                            onMouseDown={header.getResizeHandler()}
-                            onTouchStart={header.getResizeHandler()}
-                            className={`absolute right-0 top-0 h-full w-2 cursor-col-resize select-none touch-none group transition-all ${
-                              cell.column.getIsResizing() ? 'bg-primary/20' : 'hover:bg-muted'
+            {table.getRowModel().rows.map((row) => [
+              <tr key={row.id} className="hover:bg-muted/50 transition-colors">
+                {row.getVisibleCells().map((cell, cellIndex) => {
+                  // Get the corresponding header for this cell to access resize handler
+                  const headerGroup = table.getHeaderGroups()[0]
+                  const header = headerGroup?.headers[cellIndex]
+                  
+                  return (
+                    <td 
+                      key={cell.id} 
+                      className="border border-border p-3 text-sm relative bg-card text-card-foreground"
+                      style={{ width: `${(cell.column.getSize() / table.getCenterTotalSize()) * 100}%` }}
+                    >
+                      <div className="overflow-hidden">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </div>
+                      
+                      {/* Column resize handle for table cells */}
+                      {cell.column.getCanResize() && header && (
+                        <div
+                          onMouseDown={header.getResizeHandler()}
+                          onTouchStart={header.getResizeHandler()}
+                          className={`absolute right-0 top-0 h-full w-2 cursor-col-resize select-none touch-none group transition-all ${
+                            cell.column.getIsResizing() ? 'bg-primary/20' : 'hover:bg-muted'
+                          }`}
+                          style={{
+                            transform: 'translateX(1px)',
+                          }}
+                        >
+                          <div 
+                            className={`h-full ml-auto ${
+                              cell.column.getIsResizing() 
+                                ? 'bg-primary w-1' 
+                                : 'bg-transparent group-hover:bg-primary/60 w-0.5 transition-all'
                             }`}
-                            style={{
-                              transform: 'translateX(1px)',
-                            }}
-                          >
-                            <div 
-                              className={`h-full ml-auto ${
-                                cell.column.getIsResizing() 
-                                  ? 'bg-primary w-1' 
-                                  : 'bg-transparent group-hover:bg-primary/60 w-0.5 transition-all'
-                              }`}
-                            />
-                          </div>
-                        )}
-                      </td>
-                    )
-                  })}
-                </tr>
-                {row.getIsExpanded() && (
-                  <ExpandedRow
-                    key={`${row.id}-expanded`}
-                    project={row.original}
-                    colSpan={row.getVisibleCells().length}
-                  />
-                )}
-              </>
-            ))}
+                          />
+                        </div>
+                      )}
+                    </td>
+                  )
+                })}
+              </tr>,
+              ...(row.getIsExpanded() ? [
+                <ExpandedRow
+                  key={`${row.id}-expanded`}
+                  project={row.original}
+                  colSpan={row.getVisibleCells().length}
+                />
+              ] : [])
+            ])}
           </tbody>
         </table>
       </div>

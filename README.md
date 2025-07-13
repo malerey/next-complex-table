@@ -15,6 +15,8 @@ Starting simple and adding features as I think of them or get annoyed by limitat
 - [x] CI/CD pipeline with GitHub Actions + Vercel
 - [x] Advanced table features with user preferences
 - [x] Dark/light theme system with persistence
+- [x] Multi-language support (EN/ES) with next-intl
+- [ ] E2E tests with Playwright (next step)
 - [ ] Everything else...
 
 ## The Plan (loosely)
@@ -140,4 +142,11 @@ Discovery: Still too rigid - need more ways to customize and interact.
 
 Discovery: Dark mode makes everything feel more professional. Also, my eyes don't hurt anymore during late-night coding sessions.
 
-**Next up**: Internationalization, because it will be harder the more I postpone it.
+### Phase 7: "Speaking Everyone's Language" ✅
+
+**Added internationalization with next-intl:**
+
+- English and Spanish support with cookie persistence
+- Elegant language switcher showing active state
+
+**Next up**: E2E testing with Playwright to ensure this complexity actually works.
