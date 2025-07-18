@@ -9,6 +9,7 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table"
 import type { Project } from "@/types/project"
+import { projectService } from "@/lib/clientProjectService"
 import { useTableState } from "@/hooks/useTableState"
 import { useTablePreferences } from "@/hooks/useTablePreferences"
 import { columns } from "./table/columns"
@@ -25,15 +26,12 @@ export function Table() {
   const { expanded, setExpanded } = useTableState()
   const { preferences, updateColumnVisibility, updateColumnSizing, updateSorting, updateFilters } = useTablePreferences()
 
-  // Fetch projects from API
+  // Fetch projects using client service
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const response = await fetch('/api/projects')
-        if (response.ok) {
-          const data = await response.json()
-          setProjects(data)
-        }
+        const data = await projectService.getAllProjects()
+        setProjects(data)
       } catch (error) {
         console.error('Failed to fetch projects:', error)
       } finally {
@@ -53,16 +51,8 @@ export function Table() {
     if (!editingProject) return
 
     try {
-      const response = await fetch(`/api/projects/${editingProject.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updates),
-      })
-
-      if (response.ok) {
-        const updatedProject = await response.json()
+      const updatedProject = await projectService.updateProject(editingProject.id, updates)
+      if (updatedProject) {
         setProjects(projects.map(p => p.id === editingProject.id ? updatedProject : p))
         setEditingProject(null)
       }
