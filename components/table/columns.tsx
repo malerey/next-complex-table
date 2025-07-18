@@ -144,4 +144,31 @@ export const columns = [
       )
     },
   }),
+  columnHelper.display({
+    id: "actions",
+    header: "Actions",
+    size: 80,
+    minSize: 60,
+    maxSize: 100,
+    enableResizing: false,
+    cell: ({ row, table }) => {
+      const handleEdit = () => {
+        // Get the edit handler from table options
+        const onEdit = (table.options.meta as any)?.onEditProject
+        if (onEdit) {
+          onEdit(row.original)
+        }
+      }
+
+      return (
+        <button
+          onClick={handleEdit}
+          className="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          title="Edit project"
+        >
+          Edit
+        </button>
+      )
+    },
+  }),
 ]

@@ -1,0 +1,90 @@
+import type { Project } from "../types/project"
+
+export const seedProjects: Project[] = [
+  {
+    id: "1",
+    name: "Website Redesign",
+    status: "active",
+    startDate: "2024-01-15",
+    endDate: "2024-03-01",
+    owner: "Sarah Chen",
+    budget: {
+      current: 50000,
+      spent: 58000,
+    },
+    tasks: [
+      {
+        id: "1-1",
+        title: "Design mockups",
+        status: "completed",
+        assignee: "Alex Kim",
+        dueDate: "2024-01-20",
+        weight: 3,
+        category: "Design",
+      },
+      {
+        id: "1-2",
+        title: "Frontend development",
+        status: "completed",
+        assignee: "Sarah Chen",
+        dueDate: "2024-02-10",
+        weight: 5,
+        category: "Development",
+      },
+      {
+        id: "1-3",
+        title: "Backend API integration",
+        status: "in-progress",
+        assignee: "Mike Rodriguez",
+        dueDate: "2024-02-25",
+        weight: 8,
+        category: "Development",
+      },
+    ],
+  },
+  {
+    id: "2",
+    name: "Mobile App",
+    status: "idea",
+    startDate: "2024-02-01",
+    endDate: "2024-06-15",
+    owner: "Mike Rodriguez",
+    budget: {
+      current: 120000,
+      spent: 0,
+    },
+    tasks: [],
+  },
+  {
+    id: "3",
+    name: "API Refactor",
+    status: "completed",
+    startDate: "2023-11-01",
+    endDate: "2024-01-10",
+    owner: "Alex Kim",
+    budget: {
+      current: 25000,
+      spent: 23500,
+    },
+    tasks: [
+      {
+        id: "3-1",
+        title: "Audit existing endpoints",
+        status: "completed",
+        assignee: "Alex Kim",
+        dueDate: "2023-11-15",
+        weight: 2,
+        category: "Analysis",
+      },
+      {
+        id: "3-2",
+        title: "Design new API structure",
+        status: "completed",
+        assignee: "Sarah Chen",
+        dueDate: "2023-11-30",
+        weight: 5,
+        category: "Design",
+      },
+    ],
+  },
+]

@@ -4,41 +4,149 @@ I've built incredibly complex tables for clients in the past, but never had the 
 
 Starting simple and adding features as I think of them or get annoyed by limitations.
 
-## Current Status
+## Features
 
-- [x] Clean Next.js setup with TypeScript
-- [x] ESLint + Prettier configured
-- [x] TanStack Table setup
-- [x] Basic project table with status
-- [x] Tailwind CSS styling
-- [x] Expandable task details with full task management
-- [x] CI/CD pipeline with GitHub Actions + Vercel
-- [x] Advanced table features with user preferences
-- [x] Dark/light theme system with persistence
-- [x] Multi-language support (EN/ES) with next-intl
-- [ ] E2E tests with Playwright (next step)
-- [ ] Everything else...
+- 📊 **Advanced Data Table** with sorting, filtering, and pagination
+- 🔍 **Multi-level Filtering** (status, owner, date ranges, budget)
+- 📱 **Responsive Design** that works on all screen sizes
+- 🎨 **Modern UI** with Tailwind CSS and shadcn/ui components
+- 📋 **Project Management** with tasks, budgets, and status tracking
+- 💾 **Database Integration** with SQLite and Prisma ORM
+- ✏️ **Live Editing** - modify projects directly in the UI
+- 🔄 **Real-time Updates** with automatic table refresh
+- 🌓 **Dark/Light Theme** with system preference detection
+- 🌍 **Multi-language Support** (EN/ES) with next-intl
 
-## The Plan (loosely)
+## Tech Stack
 
-Build a project management table that doesn't suck. Will probably get very complex.
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Table**: TanStack React Table v8
+- **Database**: SQLite with Prisma ORM
+- **API**: Next.js API Routes with full CRUD operations
+- **State Management**: React hooks and local state
+- **Internationalization**: next-intl
 
-### Features I Want to Add Eventually:
+## Database Schema
 
-- **Nested Data**: Expandable rows with tasks, subtasks, dependencies
-- **Advanced Interactions**: Drag-and-drop file uploads, modal inline editing
-- **User Customization**: Resizable columns, column visibility, saved table preferences ✅
-- **Theming**: User-controlled themes saved to profile ✅
-- **Performance**: Virtualization for large datasets, optional pagination
-- **Multi-selection**: Batch operations, bulk editing/deleting
-- **Offline Support**: Queue updates when offline, sync when back online
-- **Conflict Resolution**: Handle simultaneous edits with user alerts
-- **Real-time**: Live updates when multiple users are editing
+The application uses SQLite with the following models:
 
-### Testing (Future)
+### Project
 
-- Unit tests with Vitest
-- E2E tests with Playwright (maybe)
+- `id` - Unique identifier
+- `name` - Project name
+- `status` - Project status (idea, active, paused, completed, cancelled)
+- `startDate` / `endDate` - Project timeline
+- `owner` - Project owner
+- `budgetCurrent` / `budgetSpent` - Budget tracking
+- `tasks` - Related tasks (one-to-many)
+
+### Task
+
+- `id` - Unique identifier
+- `title` - Task title
+- `status` - Task status (todo, in-progress, blocked, completed)
+- `assignee` - Task assignee
+- `dueDate` - Task due date
+- `weight` - Task priority weight
+- `category` - Task category
+- `projectId` - Foreign key to project
+
+## API Endpoints
+
+- `GET /api/projects` - Fetch all projects with tasks
+- `POST /api/projects` - Create new project
+- `GET /api/projects/[id]` - Get single project
+- `PUT /api/projects/[id]` - Update project
+- `DELETE /api/projects/[id]` - Delete project
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd complex-data-table
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Set up the database**
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Run database migrations
+npx prisma migrate dev --name init
+
+# Seed the database with sample data
+npm run seed
+```
+
+4. **Start the development server**
+
+```bash
+npm run dev
+```
+
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Database Commands
+
+```bash
+# View database in Prisma Studio
+npx prisma studio
+
+# Reset database and reseed
+npx prisma migrate reset
+
+# Generate new migration after schema changes
+npx prisma migrate dev --name migration-name
+```
+
+## Project Structure
+
+```
+├── src/
+│   ├── app/
+│   │   ├── api/projects/          # API routes for CRUD operations
+│   │   ├── globals.css           # Global styles
+│   │   ├── layout.tsx            # Root layout
+│   │   └── page.tsx              # Home page
+│   ├── components/
+│   │   ├── ui/                   # shadcn/ui components
+│   │   ├── Table.tsx             # Main data table component
+│   │   ├── TableColumns.tsx      # Column definitions
+│   │   ├── TableFilters.tsx      # Filter components
+│   │   └── ProjectEditor.tsx     # Project editing modal
+│   ├── data/
+│   │   └── projects.ts           # Database service functions
+│   ├── lib/
+│   │   ├── prisma.ts            # Prisma client instance
+│   │   └── utils.ts             # Utility functions
+│   ├── types/
+│   │   └── project.ts           # TypeScript interfaces
+│   └── utils/
+│       └── filters.ts           # Filtering logic
+├── prisma/
+│   ├── schema.prisma            # Database schema
+│   ├── seed.ts                  # Database seeding script
+│   └── seed-data.ts            # Sample project data
+└── dev.db                      # SQLite database file
+```
 
 ## Deployment
 
@@ -58,95 +166,15 @@ Build a project management table that doesn't suck. Will probably get very compl
 4. Vercel automatically deploys to production
 5. Live site updates in ~2 minutes
 
-## Running
-
-\`\`\`bash
-npm install
-npm run dev
-\`\`\`
-
 ## Development Journey
 
-### Phase 1: "Just Get Projects Visible" ✅
-
-**Started with the absolute minimum:**
-
-- Just project names in a basic table
-- Data: `{ id, name }` - that's it!
-- Added simple `status` field: idea, active, paused, completed, cancelled
-- Added basic color system (gray, blue, yellow, green, red)
-
-Discovery: when tracking projects I need to know who is responsible for it first.
-
-### Phase 2: "We Need More Context" ✅
-
-**Added basic project management context:**
-
-- `startDate`, `endDate` fields because stakeholders will keep asking "when will this be done?"
-- `owner` field because "who's responsible for this?"
-- `progress` percentage to track completion
-- Added progress bars and better date formatting
-
-Discovery: Progress percentages are meaningless without knowing budgets
-
-### Phase 3: "This is Getting Complex" ✅
-
-**Added financial reality and basic task tracking:**
-
-- `budget` object with current and spent amounts
-- Over-budget warnings (red text when spent > budget)
-- Currency formatting
-- `taskCount` and `completedTasks` fields
-- Simple "3/8 tasks" display
-
-Discovery: Task counts are useless - I need to see WHAT the actual tasks are!
-
-### Phase 4: "We Need Task Details" ✅
-
-**Added comprehensive task management:**
-
-- Task interface with status, assignee, due dates, and weights
-- Expandable rows showing detailed task breakdown
-- Task status system: todo, in-progress, blocked, completed
-- Visual indicators for task status and overdue items
-- Weighted progress calculation based on completed tasks
-- Assignee tracking with unassigned task handling
-
-Discovery: Need better task organization and a more usable UI
-
-### Phase 5: "Making This Actually Usable" ✅
-
-**Added advanced table features and user preferences:**
-
-- **Task categorization**: Tasks grouped by category (Design, Development, Testing, etc.)
-- **Column management**: Hide/show columns with preferences saved to localStorage
-- **Advanced filtering**: Filter by project status, assignee, task category, and overdue tasks
-- **Full sorting**: All columns sortable with saved sort preferences
-- **Persistent preferences**: All table state saved to localStorage and restored on reload
-- **Better task organization**: Tasks grouped by category in expanded view
-- **Enhanced filtering**: Multi-select filters for status, assignee, and category
-- **Column resizing**
-
-Discovery: Still too rigid - need more ways to customize and interact.
-
-### Phase 6: "My Eyes Need Options" ✅
-
-**Added comprehensive theming system:**
-
-- **Dark/light mode toggle**: Animated toggle button with sun/moon icons (because we're not animals)
-- **Theme persistence**: Your eyeball preferences saved to localStorage, because nobody wants to toggle themes every page refresh
-- **SSR-friendly**: Proper hydration handling so the theme doesn't flash like a disco when the page loads
-- **Semantic color system**: CSS custom properties that actually make sense (`--primary`, `--background`, etc.)
-- **Full component theming**: Every single table component respects your theme choice
-- **System preference detection**: Automatically starts with your OS theme preference (fancy!)
-
-Discovery: Dark mode makes everything feel more professional. Also, my eyes don't hurt anymore during late-night coding sessions.
-
-### Phase 7: "Speaking Everyone's Language" ✅
-
-**Added internationalization with next-intl:**
-
-- English and Spanish support with cookie persistence
-- Elegant language switcher showing active state
-
-**Next up**: E2E testing with Playwright to ensure this complexity actually works.
+- ✅ **Phase 1**: Basic Next.js setup with TypeScript and Tailwind CSS
+- ✅ **Phase 2**: Implemented TanStack React Table with sorting and pagination
+- ✅ **Phase 3**: Added comprehensive filtering system (status, owner, dates, budget)
+- ✅ **Phase 4**: Enhanced UI with shadcn/ui components and responsive design
+- ✅ **Phase 5**: Integrated task management with nested data display
+- ✅ **Phase 6**: Added dark/light theme system with persistence
+- ✅ **Phase 7**: Implemented multi-language support (EN/ES) with next-intl
+- ✅ **Phase 8**: Added SQLite database with Prisma ORM for data persistence
+- ✅ **Phase 9**: Implemented full CRUD API with Next.js API routes
+- ✅ **Phase 10**: Built live editing interface with modal forms and real-time updates

@@ -44,3 +44,4 @@ Thumbs.db
 # Cache
 .eslintcache
 .parcel-cache
+/generated/prisma

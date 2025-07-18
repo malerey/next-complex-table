@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useEffect } from "react"
+import { useMemo, useEffect, useState } from "react"
 import {
   useReactTable,
   getCoreRowModel,
@@ -8,27 +8,81 @@ import {
   getExpandedRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table"
-import { projects } from "@/data/projects"
+import type { Project } from "@/types/project"
 import { useTableState } from "@/hooks/useTableState"
 import { useTablePreferences } from "@/hooks/useTablePreferences"
 import { columns } from "./table/columns"
 import { ExpandedRow } from "./table/ExpandedRow"
 import { FilterControls } from "./table/FiltersControls"
 import { ColumnControls } from "./table/ColumnControls"
+import { ProjectEditor } from "./ProjectEditor"
 import { filterProjects, getUniqueAssignees, getUniqueCategories } from "@/utils/filters"
 
 export function Table() {
+  const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
+  const [editingProject, setEditingProject] = useState<Project | null>(null)
   const { expanded, setExpanded } = useTableState()
   const { preferences, updateColumnVisibility, updateColumnSizing, updateSorting, updateFilters } = useTablePreferences()
+
+  // Fetch projects from API
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const response = await fetch('/api/projects')
+        if (response.ok) {
+          const data = await response.json()
+          setProjects(data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch projects:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  // Handle project editing
+  const handleEditProject = (project: Project) => {
+    setEditingProject(project)
+  }
+
+  const handleSaveProject = async (updates: Partial<Project>) => {
+    if (!editingProject) return
+
+    try {
+      const response = await fetch(`/api/projects/${editingProject.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates),
+      })
+
+      if (response.ok) {
+        const updatedProject = await response.json()
+        setProjects(projects.map(p => p.id === editingProject.id ? updatedProject : p))
+        setEditingProject(null)
+      }
+    } catch (error) {
+      console.error('Failed to update project:', error)
+    }
+  }
+
+  const handleCancelEdit = () => {
+    setEditingProject(null)
+  }
 
   // Filter projects based on current filters
   const filteredProjects = useMemo(() => {
     return filterProjects(projects, preferences.filters)
-  }, [preferences.filters])
+  }, [projects, preferences.filters])
 
   // Get unique values for filter dropdowns
-  const availableAssignees = useMemo(() => getUniqueAssignees(projects), [])
-  const availableCategories = useMemo(() => getUniqueCategories(projects), [])
+  const availableAssignees = useMemo(() => getUniqueAssignees(projects), [projects])
+  const availableCategories = useMemo(() => getUniqueCategories(projects), [projects])
 
   const table = useReactTable({
     data: filteredProjects,
@@ -59,6 +113,9 @@ export function Table() {
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
     columnResizeDirection: 'ltr',
+    meta: {
+      onEditProject: handleEditProject,
+    },
   })
 
   // Handle body class during column resizing for better UX
@@ -74,6 +131,14 @@ export function Table() {
       document.body.classList.remove('column-resizing')
     }
   }, [table.getState().columnSizingInfo.isResizingColumn])
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-muted-foreground">Loading projects...</div>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -199,6 +264,14 @@ export function Table() {
       <div className="mt-4 text-sm text-muted-foreground">
         Showing {table.getRowModel().rows.length} of {projects.length} projects
       </div>
+      
+      {editingProject && (
+        <ProjectEditor
+          project={editingProject}
+          onSave={handleSaveProject}
+          onCancel={handleCancelEdit}
+        />
+      )}
     </div>
   )
 }
