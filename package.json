@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "db:seed": "npx tsx prisma/seed.ts"
+    "db:seed": "npx tsx prisma/seed.ts",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "^6.12.0",
@@ -31,6 +32,7 @@
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
     "eslint-config-prettier": "^9.0.0",
+    "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "postcss": "^8.0.0",
     "prettier": "^3.0.0",
