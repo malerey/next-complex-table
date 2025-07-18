@@ -118,9 +118,9 @@ export function Table() {
     },
   })
 
-  // Handle body class during column resizing for better UX
+  // Handle column resizing state
+  const isResizing = table.getState().columnSizingInfo.isResizingColumn
   useEffect(() => {
-    const isResizing = table.getState().columnSizingInfo.isResizingColumn
     if (isResizing) {
       document.body.classList.add('column-resizing')
     } else {
@@ -130,7 +130,7 @@ export function Table() {
     return () => {
       document.body.classList.remove('column-resizing')
     }
-  }, [table.getState().columnSizingInfo.isResizingColumn])
+  }, [isResizing])
 
   if (loading) {
     return (

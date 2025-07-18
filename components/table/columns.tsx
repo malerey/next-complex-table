@@ -154,7 +154,7 @@ export const columns = [
     cell: ({ row, table }) => {
       const handleEdit = () => {
         // Get the edit handler from table options
-        const onEdit = (table.options.meta as any)?.onEditProject
+        const onEdit = (table.options.meta as { onEditProject?: (project: Project) => void })?.onEditProject
         if (onEdit) {
           onEdit(row.original)
         }
