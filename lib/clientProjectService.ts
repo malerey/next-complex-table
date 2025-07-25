@@ -1,4 +1,5 @@
 import type { Project } from '@/types/project'
+import type { Task } from '@/types/task'
 import { mockProjects } from '@/data/mock-projects'
 
 const STORAGE_KEY = 'complex-table-projects'
@@ -93,6 +94,25 @@ class ProjectService {
     projects[index] = { ...projects[index], ...data }
     this.saveProjects(projects)
     return projects[index]
+  }
+
+  // Update task within a project
+  async updateTask(projectId: string, taskId: string, data: Partial<Omit<Task, 'id'>>): Promise<boolean> {
+    const projects = this.getStoredProjects()
+    const projectIndex = projects.findIndex(p => p.id === projectId)
+    
+    if (projectIndex === -1) return false
+    
+    const taskIndex = projects[projectIndex].tasks.findIndex(t => t.id === taskId)
+    if (taskIndex === -1) return false
+    
+    projects[projectIndex].tasks[taskIndex] = { 
+      ...projects[projectIndex].tasks[taskIndex], 
+      ...data 
+    }
+    
+    this.saveProjects(projects)
+    return true
   }
 
   // Delete project

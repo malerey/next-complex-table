@@ -11,7 +11,7 @@ Starting simple and adding features as I think of them or get annoyed by limitat
 - 📱 **Responsive Design** that works on all screen sizes
 - 🎨 **Modern UI** with Tailwind CSS and shadcn/ui components
 - 📋 **Project Management** with tasks, budgets, and status tracking
-- 💾 **Database Integration** with SQLite and Prisma ORM
+- 💾 **Database Integration** with SQLite and Prisma ORM (only for dev, mock db in prod)
 - ✏️ **Live Editing** - modify projects directly in the UI
 - 🔄 **Real-time Updates** with automatic table refresh
 - 🌓 **Dark/Light Theme** with system preference detection
